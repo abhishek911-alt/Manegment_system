@@ -1,0 +1,91 @@
+<html>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+  <style>
+body {font-family: Arial, Helvetica, sans-serif;}
+* {
+  width: 50%
+  box-sizing border-box;}
+
+input[type=text], select, textarea {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+  margin-top: 6px;
+  margin-bottom: 16px;
+  resize: vertical;
+}
+
+input[type=submit] {
+  background-color: #4CAF50;
+  color: white;
+  padding: 12px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+
+.container {
+  border-radius: 5px;
+  background-color: #f2f2f2;
+  margin: auto;
+  padding: 12px 20px;
+
+  width: 50%;
+}
+</style>
+
+<body>
+  <nav class="navbar navbar-inverse">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>                        
+      </button>
+      <a class="navbar-brand" href="#">TASKS MGMT SYSTEM</a>
+    </div>
+    <div class="collapse navbar-collapse" id="myNavbar">
+      
+       <ul class="nav navbar-nav">
+        <li ><a href="/">Home</a></li>
+        
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li><a href="{{ url }}"><span class="glyphicon glyphicon-log-in"></span> Logout</a></li>
+      </ul>
+    </div>
+  </div>
+</nav>
+			<div class="container">
+  <h1>Task Board : {{result.TaskBoard_name}}</h1>
+
+	<form action="\TaskBoardAddMembers" method="get">
+     <label for="members">Choose a member to add to Taskboard :</label>
+        <select name="TaskBoard_members" id="TaskBoard_members"">
+    
+    {% for x in usersinsystem %}
+      <option value="{{x}}">{{x}}</option>
+
+    {% endfor %}
+    
+  
+</select>
+	 <input type="hidden" id="TaskBoard_uid" name="TaskBoard_uid" value="{{TaskBoard_uid}}">
+
+	<input type="hidden" id="AddMember" name="AddMember" value="True">
+	<input type="submit" name="submit" id="submit" text="submit">
+	</form>
+  {% if size == 0 %} 
+    <p style="color: RED;"> seems like there no more memebrs in system who can be added</p>
+    {% endif %}
+	<div>
+</div>
+</body>
+</html>

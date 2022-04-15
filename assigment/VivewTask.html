@@ -1,0 +1,233 @@
+<html>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+  <style>
+body {font-family: Arial, Helvetica, sans-serif;}
+* {
+  width: 50%
+  box-sizing border-box;
+}
+
+input[type=text], select, textarea {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+  margin-top: 6px;
+  margin-bottom: 16px;
+  resize: vertical;
+}
+
+input[type=submit] {
+  background-color: #000000;
+  color: white;
+  padding: 12px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.8);
+
+}
+button{
+    background-color: #000000;
+  color: white;
+  padding: 12px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.8);
+}
+li{
+  cursor: pointer;
+  box-shadow: 0 2px 6px 0 rgba(0,0,0,0.8);
+
+}
+
+.container {
+ border-radius: 5px;
+  background-color: #f2f2f2;
+  margin: auto;
+  padding: 12px 20px;
+  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.8);
+
+  width: 50%;
+}
+table, td, th {
+  border: 1px solid black;
+}
+
+table {
+  border-collapse: collapse;
+  width: 100%;
+  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.8);
+
+}
+
+td {
+  height: 50px;
+  vertical-align: bottom;
+  text-align: center; 
+    vertical-align: middle;
+}
+th{
+text-align:center;
+}
+</style>
+<body>
+  <nav class="navbar navbar-inverse">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>                        
+      </button>
+      <a class="navbar-brand" href="#">TASKS MGMT SYSTEM</a>
+    </div>
+    <div class="collapse navbar-collapse" id="myNavbar">
+      
+       <ul class="nav navbar-nav">
+        <li ><a href="/">Home</a></li>
+        
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li><a href="{{ url }}"><span class="glyphicon glyphicon-log-in"></span> Logout</a></li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+            <div class="container">
+
+      <h1 style="text-align: center;background-color: BLACK; color:WHITE;" >Task Board :{{Task_boardname}}</h1></br> 
+      <center>
+        <p><b>Note : Click Taskname to edit it.</b></p>
+        <table>
+  <tr style="background:GREY; color: WHITE;border:WHITE;">
+    <th>Total Tasks</th>
+    <th>Total Completed</th>
+    <th>Completed Today</th>
+    <th>Active Tasks</th>
+
+  </tr>
+  <tr style="background:WHITE; color: BLACK;border:WHITE;">
+    <td>{{Total_tasks}}</td>
+    <td>{{Total_completed}}</td>
+    <td>{{Total_completedtoday}}</td>
+    <td>{{Total_active}}</td>
+
+  </tr>
+  
+</table>
+</br>
+</br>
+      </center>
+<ul class="list-group">
+  {% for i in result %}
+      {% if i.Task_status=='False' %}
+      {% if i.Task_owner in Members or i.Task_owner=="Not Assigned" %}
+    <b ><font size=+2 ><li class="list-group-item"
+      >{{loop.index}}.&nbsp;&nbsp;<input type="checkbox" onclick="myFunction('{{i.Task_uid}}','{{i.Task_boardname}}')" style="vertical-align: right" class="form-check-input" name="ev_uid"  value="{{i.Task_name}}"> <a href="/EditTask?EditView=True&Task_uid={{ i.Task_uid }}&Task_boardname={{i.Task_boardname}}&Task_name={{i.Task_name}}&TaskBoard_uid={{TaskBoard_uid}}">{{i.Task_name}} 
+        </a><div align="right"><a style="font-size: 60%">{{i.Task_owner}}</a></div></font>
+<div align="right" >
+      {% if i.Task_completedDate == '' or  i.Task_completedDate ==None %}
+      <a>Task Due: {{i.Task_due}}</a></b></div>
+      {% else %}
+      <a>Completed on: {{i.Task_completedDate}}</a></b></div>
+
+      {% endif %}
+
+        <br/>
+          <div align="center">        <button type="button" class="btn btn-default btn-sm"
+        onClick="location.href='/Task_Delete?TaskBoard_uid={{TaskBoard_uid}}&Task_name={{i.Task_name}}'">
+          <span class="glyphicon glyphicon-remove"></span> Delete 
+        </button></div>
+        </li>
+        {% else %}
+         <b ><font size=+2 ><li class="list-group-item" style="background: RED;" 
+      > <input type="checkbox" onclick="myFunction('{{i.Task_uid}}','{{i.Task_boardname}}')" style="vertical-align: right" class="form-check-input" name="ev_uid"  value="{{i.Task_name}}"> <a href="/EditTask?EditView=True&Task_uid={{ i.Task_uid }}&Task_boardname={{i.Task_boardname}}&Task_name={{i.Task_name}}&TaskBoard_uid={{TaskBoard_uid}}">{{i.Task_name}} 
+        </a><div align="right"><a style="font-size: 60%">{{i.Task_owner}}</a></div></font>
+<div align="right" >
+
+      <a>Task Due: {{i.Task_due}}</a></b></div>
+
+        <br/>
+          <div align="center">        <button type="button" class="btn btn-default btn-sm"
+        onClick="location.href='/Task_Delete?TaskBoard_uid={{TaskBoard_uid}}&Task_name={{i.Task_name}}'">
+          <span class="glyphicon glyphicon-remove"></span> Delete 
+        </button></div>
+        </li>
+        {% endif %}
+
+
+        {% endif %}
+        {% if i.Task_status=='True'%}
+        <b ><font size=+2 ><li class="list-group-item disabled" ><input type="checkbox" disabled="disabled" checked="checked" style="vertical-align: right" class="form-check-input" name="ev_uid"  value="{{i.Task_name}}"> <a>{{i.Task_name}} 
+        </a><div align="right"><a style="font-size: 60%">{{i.Task_owner}}</a></div></font></br>
+       
+<div align="right" >
+  {% if i.Task_completedDate == '' or   i.Task_completedDate == None %}
+      <a>Task Due: {{i.Task_due}} </a></b></div>
+      {% else %}
+      <a>Completed on: {{i.Task_completedDate}}</a></b></div>
+
+      {% endif %}
+
+        <br/>
+         <div align="center">        <button type="button" class="btn btn-default btn-sm"
+        onClick="location.href='/Task_Delete?TaskBoard_uid={{TaskBoard_uid}}&Task_name={{i.Task_name}}'">
+          <span class="glyphicon glyphicon-remove"></span> Delete 
+        </button></div>
+        </li>
+        {% endif %}
+  {% endfor %}
+</ul>
+<div align="center"><form action="/AddTask" method="get">
+  <input type="hidden" name="Task_boardname" value="{{Task_boardname}}">
+  <input type="submit" name="View" id="View" value="Add Task">
+  <input type="hidden" name="TaskBoard_uid" value="{{TaskBoard_uid}}">
+</form>
+</div>
+</br>
+</br></br>
+</br></br>
+</br>
+<center>
+<div class="btn-group" >
+  <button  onClick="location.href='/TaskBoardAddMembers?AddMemberView=True&Task_boardname={{Task_boardname}}&TaskBoard_uid={{TaskBoard_uid}}'">Add Members</button>&nbsp;&nbsp;
+  <button onClick="location.href='/TaskBoard_RemoveUser?TaskboardEditMemberView=True&TaskBoard_uid={{TaskBoard_uid}}'">Remove Members</button>&nbsp;&nbsp;
+  <button onClick="location.href='/RenameTaskboard?RenameView=True&TaskBoard_uid={{TaskBoard_uid}}&Task_boardname={{Task_boardname}}'" >Rename Taskboard</button>&nbsp;&nbsp;
+    <button  onclick="DeleteTaskboard('{{TaskBoard_uid}}','{{Task_boardname}}')" >Delete Taskboard</button>
+
+</div>
+</center>
+</br>
+<footer style="float:right;">Signed in as : <b> {{user}}</b></footer>
+
+</div>
+
+<script>
+function myFunction(tkuid,tkboardname) {
+  var txt;
+  if (confirm("Do you really want to mark this task Done!??")) {
+  window.location="/EditTask?EditStatus=True&Task_uid="+tkuid+"&Task_boardname="+tkboardname+"&TaskBoard_uid={{TaskBoard_uid}}";
+  } else {
+  window.location="AddTask?ViewTask=true&Task_boardname="+tkboardname+"&TaskBoard_uid={{TaskBoard_uid}}&TaskBoard_uid={{TaskBoard_uid}}";
+   }
+  
+
+}
+function DeleteTaskboard(tkuid) {
+  var txt;
+  if (confirm("Do you really want to Delete this TaskBoard!??")) {
+  window.location="/TaskBoard_Delete?TaskBoard_name={{Task_boardname}}&TaskBoard_uid={{TaskBoard_uid}}";
+  }
+  
+
+}
+</script>
+</body>
+</html>

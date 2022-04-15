@@ -1,0 +1,98 @@
+<html>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+  <style>
+body {font-family: Arial, Helvetica, sans-serif;}
+* {
+  width: 50%
+  box-sizing border-box;
+}
+
+input[type=text], select, textarea {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+  margin-top: 6px;
+  margin-bottom: 16px;
+  resize: vertical;
+}
+
+input[type=submit] {
+  background-color: #4CAF50;
+  color: white;
+  padding: 12px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+
+.container {
+  border-radius: 5px;
+  background-color: #f2f2f2;
+  margin: auto;
+  padding: 12px 20px;
+
+  width: 50%;
+}
+</style>
+<body>
+    <nav class="navbar navbar-inverse">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>                        
+      </button>
+      <a class="navbar-brand" href="#">TASKS MGMT SYSTEM</a>
+    </div>
+    <div class="collapse navbar-collapse" id="myNavbar">
+      
+       <ul class="nav navbar-nav">
+        <li ><a href="/">Home</a></li>
+        
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li><a href="{{ url }}"><span class="glyphicon glyphicon-log-in"></span> Logout</a></li>
+      </ul>
+    </div>
+  </div>
+</nav>
+			<div class="container">
+  <h1>{{Task_boardname}}-{{Task_name}}</h1>
+
+	<form action="\EditTask" method="get">
+	<input type="text" name="Task_name" id="Task_name" value="{{result.Task_name}}" required=""></br>
+    <label for="members">Choose a member to assign task :</label>
+        <select name="Task_owner" id="Task_owner"">
+      <option value="Not Assigned">Dont Assign</option>
+
+    {% for x in TaskBoard_members %}
+    {% if x != "" %}
+      <option value="{{x}}">{{x}}</option>
+    {% endif %}
+
+    {% endfor %}
+  
+</select>
+     <label for="Task_due">Task Due date :</label>
+
+  <input type="date" name="Task_due" id="Task_due" value="{{result.Task_due}}" placeholder="Task Due date........"> </br></br>
+
+	 <input type="hidden" id="EditTask" name="EditTask" value="True"> 
+   <input type="text" name="Task_uid" id="Task_uid" value="{{result.Task_uid}}">
+   <input type="hidden" name="TaskBoard_uid" id="TaskBoard_uid" value="{{TaskBoard_uid}}">
+
+	<input type="hidden" id="Task_boardname" name="Task_boardname" value="{{Task_boardname}}">
+	<input type="submit" name="submit" id="submit" text="submit">
+	</form>
+	<div>
+</div>
+<a href="/">Click here to view Task Boards</a>
+</body>
+</html>

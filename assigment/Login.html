@@ -1,0 +1,46 @@
+<html>
+<meta charset="utf-8">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+<head>
+	<style>
+		.container {
+    position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: #f2f2f2;
+  margin: auto;
+  padding: 12px 20px;
+
+  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.8);
+
+
+  width: 50%;
+}
+	</style>
+<title>User login/logout with datastore</title>
+</head>
+<body  style="background-color: #8eacbb">
+
+
+
+<div class="container" >
+
+<center>
+{% if user %}
+<h1><font size="6"> {{ welcome }} {{ user.email() }} welcome to the application</font></h1>
+{% else %}
+<h1>Hello guest welcome to the Task Management System</h1>
+{% endif %}
+<h1>you can {{ url_string }} <a href='{{ url }}'>here</a></h1>
+	</center>	
+<ul class="list-group">
+  
+</div>
+
+</body>
+</html>

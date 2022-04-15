@@ -1,0 +1,70 @@
+<html>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+  <style>
+body {font-family: Arial, Helvetica, sans-serif;}
+* {
+  width: 50%
+  box-sizing border-box;}
+
+input[type=text], select, textarea {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+  margin-top: 6px;
+  margin-bottom: 16px;
+  resize: vertical;
+}
+
+input[type=submit] {
+  background-color: #4CAF50;
+  color: white;
+  padding: 12px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+
+.container {
+  border-radius: 5px;
+  background-color: #f2f2f2;
+  margin: auto;
+  padding: 12px 20px;
+
+  width: 50%;
+}
+</style>
+<body>
+			<div class="container">
+
+	<form action="\AddTask" method="get">
+	<input type="text" name="Task_name" id="Task_name" placeholder="Enter task name........"></br>
+		<input type="text" name="Task_owner" id="Task_owner" placeholder=" Assign task to........">	</br>
+	<input type="text" name="Task_due" id="Task_due" placeholder="Task Due date........">	</br>
+	<input type="hidden" name="TaskBoard_uid" name="TaskBoard_uid" value="{{TaskBoard_uid}}">
+	<input type="hidden" id="Task_boardname" name="Task_boardname" value="{{Task_boardname}}">
+	<input type="submit" name="submit" id="submit" text="submit">
+	</form>
+	<div>
+	<h1>{{Task_boardname}}</h1>
+
+	<ul class="list-group">
+	{% for i in result %}
+	  <b ><font size=+2 ><li class="list-group-item" ><input type="checkbox" style="vertical-align: right" class="form-check-input" name="ev_uid"  value="{{i.Task_name}}"> <a href="/EditTask?EditView=True&TaskBoard_uid={{TaskBoard_uid}}">{{i.Task_name}} 
+        </a><div align="right"><a style="font-size: 60%">{{i.Task_owner}}</a></div></font>
+<div align="right" >
+
+    	<a>Task Due: {{i.Task_due}}</a></b></div>
+
+        <br/>
+        </li>
+	{% endfor %}
+</ul>
+</div>
+</body>
+</html>
